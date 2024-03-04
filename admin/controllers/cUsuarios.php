@@ -23,7 +23,6 @@ class Cusuarios {
 
     // Método para comprobar la sesión del usuario
     public function comprobarSession(){
-        ob_start();
         session_start();
         if (!isset($_SESSION['id_admin'])) {
             header("Location: index.php?controlador=cUsuarios&metodo=formularioInicial");
@@ -31,31 +30,25 @@ class Cusuarios {
         }
     }
 
-    // Método para comprobar las credenciales de inicio de sesión
     public function comprobarUsuarios() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar'])) {
+        $this->vista = 'vInicio';
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $usuario = $_POST['usuario'];
-            $pw = $_POST['pw'];
-    
-            $usuario1 = $this->objInicio->verificarCredenciales($usuario, $pw);
-    
-            if (is_array($usuario1)) {
-                // session_start();
-                $_SESSION['id_admin'] = $usuario1['id_admin'];
-                $_SESSION['perfil_admin'] = $usuario1['perfil_admin'];
-    
-                if($_SESSION['perfil_admin'] === 'admin') {
-                    // Asegúrate de que no haya salida antes de la llamada a header
-                    ob_start();
-                    header("Location: index.php?controlador=ccontenedoresbasura&metodo=mostrarMenuInicial");
-                    ob_end_flush();
-                    exit();
-                }
+            $pw = $_POST['pw']; 
+
+            $usuario = $this->objInicio->verificarCredenciales($usuario, $pw);
+
+            if ($usuario) {
+                session_start();
+                $_SESSION['id_admin'] = $usuario['id_admin']; 
+                $_SESSION['usuario'] = $usuario['usuario'];
+                header('Location: index.php?controlador=ccontenedoresbasura&metodo=mostrarMenuInicial');
+                exit();
             } else {
-                $this->vista = 'vInicio';
-                $this->mensaje = "Credenciales incorrectas. Por favor, inténtelo de nuevo.";
-                return;
+                $this->mensaje = 'Credenciales incorrectas, intentalo de nuevo';
             }
+        
         }
     }
     
@@ -87,7 +80,7 @@ class Cusuarios {
     // Método para cerrar la sesión del usuario
     public function cerrarSesion() {
         session_destroy();
-        header("Location: index.php");
+        header("Location: index.php?controlador=cUsuarios&metodo=formularioInicial");
         exit();
     }
 

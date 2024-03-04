@@ -15,7 +15,7 @@ class MInicioSesion extends Conexion{
     }
 
     public function verificarCredenciales($usuario, $contrasenia) {
-        $stmt = $this->conexion->prepare("SELECT id_admin, nombre, contrasenia, perfil_admin FROM administradores WHERE usuario = ?");
+        $stmt = $this->conexion->prepare("SELECT * FROM administradores WHERE usuario = ?");
         $stmt->bind_param("s", $usuario);
         $stmt->execute();
         $result = $stmt->get_result();
