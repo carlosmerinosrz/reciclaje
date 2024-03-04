@@ -8,9 +8,9 @@
     <body>
 <?php
 // Compruebo si hay una sesión iniciada
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+// if (session_status() == PHP_SESSION_NONE) {
+//     session_start();
+// }
 if (isset($_SESSION['id_admin'])) {
 ?>
         <nav> 

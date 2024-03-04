@@ -8,7 +8,7 @@ class Cusuarios {
     public $objInicio;
     public $mensaje;
     public $mensajebueno;
-
+    public $id_contenedor;
     // Constructor de la clase
     function __construct() {
         require_once __DIR__ . '/../models/miniciosesion.php';
@@ -23,6 +23,7 @@ class Cusuarios {
 
     // Método para comprobar la sesión del usuario
     public function comprobarSession(){
+        ob_start();
         session_start();
         if (!isset($_SESSION['id_admin'])) {
             header("Location: index.php?controlador=cUsuarios&metodo=formularioInicial");
@@ -35,19 +36,20 @@ class Cusuarios {
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['enviar'])) {
             $usuario = $_POST['usuario'];
             $pw = $_POST['pw'];
-
+    
             $usuario1 = $this->objInicio->verificarCredenciales($usuario, $pw);
-
+    
             if (is_array($usuario1)) {
-                session_start();
+                // session_start();
                 $_SESSION['id_admin'] = $usuario1['id_admin'];
                 $_SESSION['perfil_admin'] = $usuario1['perfil_admin'];
-
-                switch ($_SESSION['perfil_admin']) {
-                    case 'admin':
-                        header("Location: index.php?controlador=ccontenedoresbasura&metodo=mostrarMenuInicial");
-                        exit();
-                        break;
+    
+                if($_SESSION['perfil_admin'] === 'admin') {
+                    // Asegúrate de que no haya salida antes de la llamada a header
+                    ob_start();
+                    header("Location: index.php?controlador=ccontenedoresbasura&metodo=mostrarMenuInicial");
+                    ob_end_flush();
+                    exit();
                 }
             } else {
                 $this->vista = 'vInicio';
@@ -56,6 +58,7 @@ class Cusuarios {
             }
         }
     }
+    
 
     // Método para crear un administrador
     public function crearBas(){
@@ -83,7 +86,6 @@ class Cusuarios {
 
     // Método para cerrar la sesión del usuario
     public function cerrarSesion() {
-        session_start();
         session_destroy();
         header("Location: index.php");
         exit();
