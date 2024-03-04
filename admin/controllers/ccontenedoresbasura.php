@@ -344,5 +344,3 @@ class CcontenedoresBasura {
         return $this->mensajebueno = "Se han insertado " . $cantidad_registros_agregados . " de " . $cantidad_registros . "registros";
     }
 }
-?>
-        
