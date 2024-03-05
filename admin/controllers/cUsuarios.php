@@ -79,6 +79,7 @@ class Cusuarios {
 
     // Método para cerrar la sesión del usuario
     public function cerrarSesion() {
+        session_start();
         session_destroy();
         header("Location: index.php?controlador=cUsuarios&metodo=formularioInicial");
         exit();

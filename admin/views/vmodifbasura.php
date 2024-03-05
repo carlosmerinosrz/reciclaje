@@ -69,6 +69,6 @@
         <input type="submit" value="Guardar">
 
     </form>
-
+    <a href="index.php?controlador=cbasura&metodo=listadoBasuraContenedor&id_contenedor=<?php echo $contenedor['id_contenedor']; ?>" class="volverAtras">Volver atrás</a>            
 <?php endforeach; ?>
 

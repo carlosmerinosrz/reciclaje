@@ -21,11 +21,12 @@ class CBasura {
         $this->vista = 'valtabasura';
         $this->objBasura = new MBasura();
         $this->objInicio = new Cusuarios();
+
+        $this->objInicio->comprobarSession();
     }
 
     public function eleccionGestion() {
 
-        $this->objInicio->comprobarSession();
         $this->vista = 'vgestionbasura';
         $datos = $this->objBasura->msacarcontenedores();
         return $datos;
@@ -33,7 +34,6 @@ class CBasura {
 
     public function listadoBasura() {
 
-        $this->objInicio->comprobarSession();
         $this->vista = 'vlistarbasura';
         $datos = $this->objBasura->listadoBasura();
         return $datos;
@@ -41,7 +41,6 @@ class CBasura {
 
     public function listadoBasuraContenedor() {
 
-        $this->objInicio->comprobarSession();
         $this->vista = 'vlistarbasura';
         $id_contenedor = $_GET['id_contenedor'];
 
@@ -55,7 +54,6 @@ class CBasura {
 
     public function listadoBasuraContenedorFormulario() {
 
-        $this->objInicio->comprobarSession();
         $this->vista = 'vlistarbasura';
         $id_contenedor = $_POST['id_contenedor'];
         $datos = $this->objBasura->listadoBasuraContenedor($id_contenedor);
@@ -63,8 +61,6 @@ class CBasura {
     }
 
     public function mostrarFormBasura() {
-
-        $this->objInicio->comprobarSession();
         $this->vista = 'valtabasura';
         $datos = $this->objBasura->msacarcontenedores();
         return $datos;
@@ -72,7 +68,6 @@ class CBasura {
 
     public function crearBasura() {
 
-        $this->objInicio->comprobarSession();
         $this->vista = 'valtabasura';
 
         $nombre = $_POST['nombre'];
@@ -94,7 +89,6 @@ class CBasura {
 
     public function obtenerMensajeError($codigoError, $id_contenedor) {
 
-        $this->objInicio->comprobarSession();
         $this->id_contenedor = $id_contenedor;
         $this->vista = 'vError';
         $this->mensaje = "Error. Código de error: " . $codigoError;
@@ -130,7 +124,6 @@ class CBasura {
 
     public function mostrarFormModfBasura() {
 
-        $this->objInicio->comprobarSession();
         $this->vista = 'vmodifbasura';
         $id_basura = $_GET['id'];
         $datos = $this->objBasura->msacarBasura($id_basura);
@@ -184,7 +177,6 @@ class CBasura {
 
     public function generarVistaPdf($datos) {
 
-        $this->objInicio->comprobarSession();
         ob_start();
         include 'views/generarBasuraPdf.php';
         $html = ob_get_clean();

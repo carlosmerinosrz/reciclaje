@@ -21,22 +21,21 @@ class CcontenedoresBasura {
         $this->objContenedoresBasura = new MContenedoresBasura();
         $this->objBasura = new MBasura();
         $this->objInicio = new Cusuarios();
+
+        $this->objInicio->comprobarSession();
     }
 
     public function mostrarMenuInicial() {
-        $this->objInicio->comprobarSession();
         $this->vista = 'vmenuinicial';
     }
 
     public function listadoContenedores() {
-        $this->objInicio->comprobarSession();
         $this->vista = 'vlistarcontenedores';
         $datos = $this->objContenedoresBasura->listarContenedores();
         return $datos;
     }
 
     public function mostrarFormContenedores() {
-        $this->objInicio->comprobarSession();
         $this->vista = 'valtacontenedores';
     }
 
@@ -46,7 +45,6 @@ class CcontenedoresBasura {
     }
 
     public function generarVistaPdf($datos) {
-        $this->objInicio->comprobarSession();
         ob_start();
         include 'views/generarPdf.php';
         $html = ob_get_clean();
@@ -65,7 +63,6 @@ class CcontenedoresBasura {
 
 
     public function procesarFormulario() {
-        $this->objInicio->comprobarSession();
         $this->vista = 'valtacontenedores';
     
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -156,7 +153,6 @@ class CcontenedoresBasura {
     
     // ------ MODIFICAR LAS BASURAS QUE TIENE UN CONTENEDOR --------------------------------------------------------------
     public function mModifBasurasContenedor() {
-        $this->objInicio->comprobarSession();
         $this->vista = 'informacioncontenedores';
         $id = $_GET['id'];
         $datosContenedor = $this->objContenedoresBasura->mObtenerContenedorBasura($id);
@@ -165,7 +161,6 @@ class CcontenedoresBasura {
     
     // ------ OBTENER LOS DATOS DE LOS CONTENEDORES CON SUS BASURA --------------------------------------------------------------
     public function mObtenerContenedorBasura() {
-        $this->objInicio->comprobarSession();
         $this->vista = 'vmodificarcontenedor';
         $id = $_GET['id'];
         $datosContenedor = $this->objContenedoresBasura->mObtenerContenedorBasura($id);
@@ -174,7 +169,6 @@ class CcontenedoresBasura {
         
 // ------ MODIFICACION DE CONTENEDORES Y LAS BASURAS DEL CONTENEDOR --------------------------------------------------------------
     public function cmodificarcontenedor() {
-        $this->objInicio->comprobarSession();
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -196,8 +190,7 @@ class CcontenedoresBasura {
                 }
                 $imageData = file_get_contents($_FILES["image"]["tmp_name"]);
             } else {
-                $this->mensaje = "Error al procesar el formulario: Debes seleccionar una imagen.";
-                return;
+                $imageData = NULL;
             }
             $resultado1 = $this->objContenedoresBasura->mmodifcontenedor($idContenedor, $nombre, $descripcion, $imageData);
 
@@ -255,7 +248,6 @@ class CcontenedoresBasura {
 
     public function crearBasurasNuevas() {
 
-        $this->objInicio->comprobarSession();
         $idContenedor = $_GET['id'];
         $nuevasBasuras = array();
         $camposVacios = false;

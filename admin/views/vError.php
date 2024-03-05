@@ -13,7 +13,6 @@
         }
 
         ?>
-
     <a href="index.php?controlador=cbasura&metodo=listadoBasuraContenedor&id_contenedor=<?php echo $id_contenedor ?>" class="volverAlListado">VOLVER AL LISTADO</a>
 
 </div>
