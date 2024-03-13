@@ -616,6 +616,10 @@ span{
   color: #2e2e2e;
 }
 
+::placeholder{
+  font-family: 'utendo-regular';
+}
+
 .enlacesTodos{
   background-color: #b6b6b6;
   color: #2e2e2e;

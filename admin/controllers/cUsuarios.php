@@ -9,6 +9,7 @@ class Cusuarios {
     public $mensaje;
     public $mensajebueno;
     public $id_contenedor;
+    
     // Constructor de la clase
     function __construct() {
         require_once __DIR__ . '/../models/miniciosesion.php';

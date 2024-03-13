@@ -19,7 +19,7 @@
                         <td><?php echo $contenedor['id_contenedor']; ?></td>
                         <td><?php echo $contenedor['nombre']; ?></td>
                         <td><img src="data:image/jpeg;base64,<?php echo $contenedor['img'] ?>" class="imagenesContenedor" alt="Imagen del Contenedor"></td>
-                        <td><?php echo ($contenedor['descripcion'] === NULL) ? 'Sin Descripcion' : $contenedor['descripcion']; ?></td>
+                        <td><span><?php echo ($contenedor['descripcion'] === NULL) ? 'Sin Descripcion' : $contenedor['descripcion']; ?></span></td>
                         <td>
                             <a class="aBorrar" href="index.php?controlador=ccontenedoresbasura&metodo=borrarContenedores&id=<?php echo $contenedor['id_contenedor']; ?>">Borrar</a>
                             <a class="aEditar" href="index.php?controlador=ccontenedoresbasura&metodo=mObtenerContenedorBasura&id=<?php echo $contenedor['id_contenedor']; ?>">Editar</a>

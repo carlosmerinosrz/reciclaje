@@ -87,34 +87,6 @@ class CBasura {
         }
     }
 
-    public function obtenerMensajeError($codigoError, $id_contenedor) {
-
-        $this->id_contenedor = $id_contenedor;
-        $this->vista = 'vError';
-        $this->mensaje = "Error. Código de error: " . $codigoError;
-
-        switch ($codigoError) {
-            case 1048:
-                $this->mensaje = "Error al procesar el formulario: No puede haber campos vacíos.";
-                break;
-            case 1406:
-                $this->mensaje = "Error al procesar el formulario: Los campos exceden la longitud máxima.";
-                break;
-            case 1062:
-                $this->mensaje = "Error al procesar el formulario: Ya existe una basura con ese nombre.";
-                break;
-            default:
-                if (is_numeric($codigoError)) {
-                    $this->mensaje = "Error al crear contenedor. Código de error: $codigoError";
-                } else {
-                    $this->mensaje = $codigoError;
-                }
-                break;
-        }
-
-        return $this->mensaje;
-    }
-
     public function sacarContenedores() {
 
         $datos = $this->objBasura->msacarcontenedores();
@@ -139,6 +111,7 @@ class CBasura {
 
         $nombre = ($nombre === '') ? NULL : $nombre;
         $descripcion = ($descripcion === '') ? NULL : $descripcion;
+        $id_contenedor = ($id_contenedor === '') ? NULL : $id_contenedor;
 
         $resultado = $this->objBasura->mmodificarBasura($id_basura, $nombre, $descripcion, $id_contenedor);
 
@@ -190,6 +163,34 @@ class CBasura {
         $dompdf->setPaper('A4', 'protrait');
         $dompdf->render();
         $dompdf->stream("listado_basura_carlos_merino.pdf");
+    }
+
+    public function obtenerMensajeError($codigoError, $id_contenedor) {
+
+        $this->id_contenedor = $id_contenedor;
+        $this->vista = 'vError';
+        $this->mensaje = "Error. Código de error: " . $codigoError;
+
+        switch ($codigoError) {
+            case 1048:
+                $this->mensaje = "Error al procesar el formulario: No puede haber campos vacíos.";
+                break;
+            case 1406:
+                $this->mensaje = "Error al procesar el formulario: Los campos exceden la longitud máxima.";
+                break;
+            case 1062:
+                $this->mensaje = "Error al procesar el formulario: Ya existe una basura con ese nombre.";
+                break;
+            default:
+                if (is_numeric($codigoError)) {
+                    $this->mensaje = "Error al crear contenedor. Código de error: $codigoError";
+                } else {
+                    $this->mensaje = $codigoError;
+                }
+                break;
+        }
+
+        return $this->mensaje;
     }
 }
 

@@ -4,11 +4,13 @@ require_once __DIR__ . '/../models/conexion.php';
 
 
 
-class MReciclaje extends Conexion{
+class MReciclaje extends Conexion
+{
 
 
 
-    public function __construct(){
+    public function __construct()
+    {
 
         parent::__construct();
 
@@ -16,9 +18,10 @@ class MReciclaje extends Conexion{
 
 
 
-    public function listadoBasuraContenedor($id_contenedor) {
+    public function listadoBasuraContenedor($id_contenedor)
+    {
 
-        if ($id_contenedor === 'NULL'){
+        if ($id_contenedor === 'NULL') {
 
             $sql = "SELECT b.id_basura, b.nombre AS nombre_basura, b.descripcion AS descripcion_basura, c.id_contenedor, c.nombre AS nombre_contenedor
 
@@ -26,7 +29,7 @@ class MReciclaje extends Conexion{
 
             WHERE c.id_contenedor IS NULL;";
 
-        }else{
+        } else {
 
             $sql = "SELECT b.id_basura, b.nombre AS nombre_basura, b.descripcion AS descripcion_basura, c.id_contenedor, c.nombre AS nombre_contenedor
 
@@ -36,7 +39,7 @@ class MReciclaje extends Conexion{
 
         }
 
-        
+
 
         $conexion = $this->conexion->prepare($sql);
 
@@ -44,7 +47,7 @@ class MReciclaje extends Conexion{
 
         $datos = [];
 
-    
+
 
         $result = $conexion->get_result();
 
@@ -56,7 +59,7 @@ class MReciclaje extends Conexion{
 
         $conexion->close();
 
-    
+
 
         return $datos;
 
@@ -64,7 +67,8 @@ class MReciclaje extends Conexion{
 
 
 
-    public function msacarcontenedores(){
+    public function msacarcontenedores()
+    {
 
         $sql = "SELECT id_contenedor, nombre FROM contenedores";
 
@@ -74,7 +78,7 @@ class MReciclaje extends Conexion{
 
         $datos = [];
 
-    
+
 
         $result = $conexion->get_result();
 
@@ -86,7 +90,7 @@ class MReciclaje extends Conexion{
 
         $conexion->close();
 
-    
+
 
         return $datos;
 
@@ -94,9 +98,10 @@ class MReciclaje extends Conexion{
 
 
 
-    public function mObtenerContenedorBasura($id) {
+    public function mObtenerContenedorBasura($id)
+    {
 
-        if($id === 'NULL')
+        if ($id === 'NULL')
 
             $sql = "SELECT contenedores.id_contenedor, contenedores.nombre AS nombre_contenedor, contenedores.img AS imagen_contenedor,
 
@@ -107,7 +112,6 @@ class MReciclaje extends Conexion{
             FROM basura LEFT JOIN contenedores ON basura.id_contenedor = contenedores.id_contenedor
 
             WHERE basura.id_contenedor IS null;";
-
         else
 
             $sql = "SELECT contenedores.id_contenedor, contenedores.nombre AS nombre_contenedor, contenedores.img AS imagen_contenedor,
@@ -126,15 +130,15 @@ class MReciclaje extends Conexion{
 
         $conexion2->execute();
 
-    
+
 
         $resultados = array();
 
-        
+
 
         $datos = $conexion2->get_result();
 
-        
+
 
         while ($fila = $datos->fetch_assoc()) {
 
@@ -148,7 +152,8 @@ class MReciclaje extends Conexion{
 
 
 
-    public function mObtenerResultadoBuscador($palabra){
+    public function mObtenerResultadoBuscador($palabra)
+    {
 
         $sql = "SELECT b.id_basura, b.nombre AS nombre_basura, b.descripcion AS descripcion_basura, c.id_contenedor, c.nombre AS nombre_contenedor
 
@@ -184,5 +189,4 @@ class MReciclaje extends Conexion{
 
 }
 
-?>
 

@@ -23,7 +23,7 @@
                                 <td><input type="checkbox" name="seleccionar[]" value="<?php echo $basura['id_basura']; ?>"></td>
                                 <td><?php echo $basura['id_basura'] ?></td>
                                 <td><?php echo $basura['nombre_basura'] ?></td>
-                                <td><?php echo ($basura['descripcion_basura'] === NULL) ? 'Sin Descripcion' : $basura['descripcion_basura']; ?></td>
+                                <td><span><?php echo ($basura['descripcion_basura'] === NULL) ? 'Sin Descripcion' : $basura['descripcion_basura']; ?></span></td>
                                 <td>
                                     <!-- <a class="aBorrar" href="index.php?controlador=cbasura&metodo=borrarbasura&id=<?php echo $basura['id_basura']; ?>&id_contenedor=<?php echo $basura['id_contenedor']; ?>">Borrar</a> -->
                                     <a class="aEditar" href="index.php?controlador=cbasura&metodo=mostrarFormModfBasura&id=<?php echo $basura['id_basura']; ?>&id_cont_sin=<?php echo $basura['id_contenedor']; ?>">Editar</a>

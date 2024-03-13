@@ -215,31 +215,6 @@ class CcontenedoresBasura {
         }
     }
 
-    // ------ MENSAJES DE ERROR --------------------------------------------------------------
-
-    public function obtenerMensajeError($codigoError) {
-        $this->mensaje = "Error. Código de error: " . $codigoError;
-        switch ($codigoError) {
-            case 1048:
-                $this->mensaje = "Error al procesar el formulario: No puede haber campos vacíos.";
-                break;
-            case 1406:
-                $this->mensaje = "Error al procesar el formulario: Los campos exceden la longitud máxima.";
-                break;
-            case 1062:
-                $this->mensaje = "Error al procesar el formulario: Ya existe un contenedor con ese nombre.";
-                break;
-            default:
-                if (is_numeric($codigoError)) {
-                    $this->mensaje = "Error al crear contenedor. Código de error: $codigoError";
-                } else {
-                    $this->mensaje = $codigoError;
-                }
-                break;
-        }
-        return $this->mensaje;
-    }
-
     // ------ BORRAR LAS BASURAS CUANDO MODIFICAMOS SOLO LAS BASURA DE LOS CONTENEDORES -------------------------------------
 
     public function borrarBasurasContenedores($id) {
@@ -311,14 +286,14 @@ class CcontenedoresBasura {
         $tamanio = $_FILES['dataCliente']['size'];
         $archivotmp = $_FILES['dataCliente']['tmp_name'];
         $lineas = file($archivotmp);
+        print_r($lineas);
         $cantidad_registros_agregados = 0;
 
         $i = 0;
 
         foreach ($lineas as $linea) {
-
+            
             $cantidad_registros = count($lineas);
-            $cantidad_regist_agregados = ($cantidad_registros - 1);
 
             if ($i != 0) {
                 $datos = explode(";", $linea);
@@ -334,5 +309,30 @@ class CcontenedoresBasura {
             $i++;
         }
         return $this->mensajebueno = "Se han insertado " . $cantidad_registros_agregados . " de " . $cantidad_registros . "registros";
+    }
+
+    // ------ MENSAJES DE ERROR --------------------------------------------------------------
+
+    public function obtenerMensajeError($codigoError) {
+        $this->mensaje = "Error. Código de error: " . $codigoError;
+        switch ($codigoError) {
+            case 1048:
+                $this->mensaje = "Error al procesar el formulario: No puede haber campos vacíos.";
+                break;
+            case 1406:
+                $this->mensaje = "Error al procesar el formulario: Los campos exceden la longitud máxima.";
+                break;
+            case 1062:
+                $this->mensaje = "Error al procesar el formulario: Ya existe un contenedor con ese nombre.";
+                break;
+            default:
+                if (is_numeric($codigoError)) {
+                    $this->mensaje = "Error al crear contenedor. Código de error: $codigoError";
+                } else {
+                    $this->mensaje = $codigoError;
+                }
+                break;
+        }
+        return $this->mensaje;
     }
 }
